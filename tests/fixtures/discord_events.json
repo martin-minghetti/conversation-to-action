@@ -1,0 +1,22 @@
+{
+  "message_create": {
+    "id": "1234567890123456789",
+    "channel_id": "9876543210987654321",
+    "author": { "id": "1111111111111111111", "username": "sarah_dev" },
+    "content": "The API is returning 500 errors on the /users endpoint",
+    "timestamp": "2026-04-12T10:00:00.000000+00:00",
+    "message_reference": { "message_id": "1234567890123456780" }
+  },
+  "message_no_thread": {
+    "id": "1234567890123456790",
+    "channel_id": "9876543210987654321",
+    "author": { "id": "2222222222222222222", "username": "mike_eng" },
+    "content": "We should add rate limiting to the API",
+    "timestamp": "2026-04-12T11:00:00.000000+00:00"
+  },
+  "component_interaction_approve": {
+    "type": 3,
+    "data": { "custom_id": "approve_0" },
+    "message": { "id": "3333333333333333333" }
+  }
+}

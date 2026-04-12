@@ -1,0 +1,31 @@
+{
+  "message_event": {
+    "type": "event_callback",
+    "event": {
+      "type": "message",
+      "channel": "C0123456789",
+      "user": "U0123456789",
+      "text": "The login page is broken on Safari",
+      "ts": "1712928000.000100",
+      "thread_ts": "1712927000.000001"
+    },
+    "team_id": "T0123456789"
+  },
+  "url_verification": {
+    "type": "url_verification",
+    "challenge": "test-challenge-string",
+    "token": "test-token"
+  },
+  "block_action_approve": {
+    "type": "block_actions",
+    "actions": [{ "action_id": "approve_0", "value": "0" }],
+    "message": { "ts": "1712929000.000200" },
+    "channel": { "id": "C0123456789" }
+  },
+  "block_action_reject": {
+    "type": "block_actions",
+    "actions": [{ "action_id": "reject_1", "value": "1" }],
+    "message": { "ts": "1712929000.000200" },
+    "channel": { "id": "C0123456789" }
+  }
+}

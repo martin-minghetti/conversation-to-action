@@ -1,0 +1,23 @@
+{
+  "text_message": {
+    "entry": [{
+      "changes": [{
+        "value": {
+          "messages": [{
+            "id": "wamid.abc123",
+            "from": "5491112345678",
+            "timestamp": "1712928000",
+            "type": "text",
+            "text": { "body": "The checkout flow is broken, customers can't complete payment" }
+          }],
+          "metadata": { "phone_number_id": "123456789" }
+        }
+      }]
+    }]
+  },
+  "verification": {
+    "hub.mode": "subscribe",
+    "hub.verify_token": "test-verify-token",
+    "hub.challenge": "challenge-string-123"
+  }
+}

@@ -7,8 +7,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": ".."
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "../src/lib/connectors/types.ts"],
   "exclude": ["node_modules", "dist"]
 }

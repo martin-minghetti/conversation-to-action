@@ -1,0 +1,23 @@
+{
+  "search_with_match": {
+    "data": {
+      "issues": {
+        "nodes": [{
+          "id": "abc-123",
+          "title": "Login page crashes on Safari",
+          "url": "https://linear.app/team/ENG-274",
+          "labels": { "nodes": [{ "name": "bug" }, { "name": "auth" }] }
+        }]
+      }
+    }
+  },
+  "search_no_match": { "data": { "issues": { "nodes": [] } } },
+  "create_response": {
+    "data": {
+      "issueCreate": {
+        "success": true,
+        "issue": { "id": "def-456", "url": "https://linear.app/team/ENG-300" }
+      }
+    }
+  }
+}
