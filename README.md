@@ -56,6 +56,30 @@ flowchart TD
 
 ---
 
+## Screenshots
+
+### Live Feed
+Real-time feed of extracted items — bugs, features, tasks, and decisions — with confidence scores, status badges, and dedup matches.
+
+![Feed](public/screenshots/feed.png)
+
+### Item Detail
+Full extraction view with evidence quotes from the source conversation, dedup analysis, and suggested labels.
+
+![Item Detail](public/screenshots/item-detail.png)
+
+### Stats Dashboard
+Pipeline metrics: approval rate, average confidence, and breakdowns by type and status.
+
+![Stats](public/screenshots/stats.png)
+
+### Connection Management
+BYOK setup — connect your own Slack, Discord, WhatsApp, Linear, and Notion accounts with encrypted credentials.
+
+![Settings](public/screenshots/settings.png)
+
+---
+
 ## Features
 
 - **Three source connectors** — Slack Events API, Discord Gateway, WhatsApp Business API
@@ -84,7 +108,7 @@ flowchart TD
 1. **Clone the repo**
 
    ```bash
-   git clone https://github.com/your-username/conversation-to-action.git
+   git clone https://github.com/martin-minghetti/conversation-to-action.git
    cd conversation-to-action
    ```
 
@@ -173,7 +197,7 @@ npm test        # run all tests once
 npm run test:watch  # watch mode
 ```
 
-54+ tests across the full pipeline: extraction, resolution, dedup logic, connector normalizers, crypto utilities, and API route handlers. Tests run in CI on every push via GitHub Actions.
+62 tests across the full pipeline: extraction, resolution, dedup logic, connector normalizers, crypto utilities, and API route handlers. Tests run in CI on every push via GitHub Actions.
 
 ---
 
