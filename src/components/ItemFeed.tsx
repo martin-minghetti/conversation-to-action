@@ -62,16 +62,15 @@ export default function ItemFeed() {
 
   return (
     <div>
-      {/* Filter buttons */}
       <div className="flex flex-wrap gap-2 mb-8">
         {FILTERS.map(({ label, value }) => (
           <button
             key={value}
             onClick={() => setFilter(value)}
-            className={`px-4 py-2 rounded-xl text-xs font-medium transition-all duration-200 ${
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
               filter === value
-                ? 'bg-surface-2 text-accent shadow-[var(--shadow-neu-inset)]'
-                : 'bg-surface-1 text-text-secondary shadow-[var(--shadow-neu-sm)] hover:text-text-primary'
+                ? 'bg-surface-0 text-accent shadow-[var(--shadow-neu-inset)]'
+                : 'bg-surface-0 text-text-secondary shadow-[var(--shadow-neu-sm)] hover:shadow-[var(--shadow-neu-raised)] hover:text-text-primary'
             }`}
           >
             {label}
@@ -79,13 +78,12 @@ export default function ItemFeed() {
         ))}
       </div>
 
-      {/* Content */}
       {loading ? (
         <div className="text-center text-text-muted py-20 text-sm">Loading...</div>
       ) : filtered.length === 0 ? (
         <div className="text-center text-text-muted py-20 text-sm">No items yet.</div>
       ) : (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
           {filtered.map((item) => (
             <ItemCard key={item.id} item={item} />
           ))}

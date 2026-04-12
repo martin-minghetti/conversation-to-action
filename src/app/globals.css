@@ -1,42 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --color-surface-0: #101010;
-  --color-surface-1: #171717;
-  --color-surface-2: #1e1e1e;
-  --color-surface-3: #262626;
-  --color-border: rgba(255, 255, 255, 0.04);
-  --color-border-subtle: rgba(255, 255, 255, 0.02);
-  --color-text-primary: #e5e5e5;
-  --color-text-secondary: #a3a3a3;
-  --color-text-muted: #5c5c5c;
-  --color-accent: #6ec1e4;
-  --color-accent-dim: #4a8faa;
+  --color-surface-0: #e3e6ec;
+  --color-surface-1: #e3e6ec;
+  --color-surface-2: #d5d8de;
+  --color-surface-3: #cdd0d6;
+  --color-border: rgba(0, 0, 0, 0.04);
+  --color-border-subtle: rgba(0, 0, 0, 0.02);
+  --color-text-primary: #2d3142;
+  --color-text-secondary: #5a5f72;
+  --color-text-muted: #8b90a0;
+  --color-accent: #4a7fe5;
+  --color-accent-dim: #3a6bc7;
 
-  --color-type-bug: #e8786a;
-  --color-type-bug-bg: rgba(232, 120, 106, 0.08);
-  --color-type-feature: #6ea8e4;
-  --color-type-feature-bg: rgba(110, 168, 228, 0.08);
-  --color-type-task: #a3a3a3;
-  --color-type-task-bg: rgba(163, 163, 163, 0.06);
-  --color-type-decision: #b48ee4;
-  --color-type-decision-bg: rgba(180, 142, 228, 0.08);
+  --color-type-bug: #e05a4f;
+  --color-type-bug-bg: rgba(224, 90, 79, 0.10);
+  --color-type-feature: #4a7fe5;
+  --color-type-feature-bg: rgba(74, 127, 229, 0.10);
+  --color-type-task: #6b7080;
+  --color-type-task-bg: rgba(107, 112, 128, 0.08);
+  --color-type-decision: #8b5cf6;
+  --color-type-decision-bg: rgba(139, 92, 246, 0.10);
 
-  --color-status-pending: #e4c36e;
-  --color-status-pending-bg: rgba(228, 195, 110, 0.08);
-  --color-status-approved: #6ea8e4;
-  --color-status-approved-bg: rgba(110, 168, 228, 0.08);
-  --color-status-pushed: #6ee4a8;
-  --color-status-pushed-bg: rgba(110, 228, 168, 0.08);
-  --color-status-rejected: #5c5c5c;
-  --color-status-rejected-bg: rgba(92, 92, 92, 0.06);
-  --color-status-failed: #e8786a;
-  --color-status-failed-bg: rgba(232, 120, 106, 0.08);
+  --color-status-pending: #d69e2e;
+  --color-status-pending-bg: rgba(214, 158, 46, 0.10);
+  --color-status-approved: #4a7fe5;
+  --color-status-approved-bg: rgba(74, 127, 229, 0.10);
+  --color-status-pushed: #38a169;
+  --color-status-pushed-bg: rgba(56, 161, 105, 0.10);
+  --color-status-rejected: #8b90a0;
+  --color-status-rejected-bg: rgba(139, 144, 160, 0.06);
+  --color-status-failed: #e05a4f;
+  --color-status-failed-bg: rgba(224, 90, 79, 0.10);
 
-  --shadow-neu-raised: 6px 6px 14px rgba(0, 0, 0, 0.5), -6px -6px 14px rgba(255, 255, 255, 0.02);
-  --shadow-neu-inset: inset 4px 4px 10px rgba(0, 0, 0, 0.45), inset -4px -4px 10px rgba(255, 255, 255, 0.015);
-  --shadow-neu-sm: 3px 3px 8px rgba(0, 0, 0, 0.4), -3px -3px 8px rgba(255, 255, 255, 0.015);
-  --shadow-neu-hover: 8px 8px 18px rgba(0, 0, 0, 0.55), -8px -8px 18px rgba(255, 255, 255, 0.025);
+  --shadow-neu-raised: 6px 6px 12px #b8bcc5, -6px -6px 12px #ffffff;
+  --shadow-neu-inset: inset 4px 4px 8px #b8bcc5, inset -4px -4px 8px #ffffff;
+  --shadow-neu-sm: 3px 3px 6px #b8bcc5, -3px -3px 6px #ffffff;
+  --shadow-neu-hover: 8px 8px 16px #b8bcc5, -8px -8px 16px #ffffff;
 
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -52,5 +52,5 @@ body {
 
 ::selection {
   background-color: var(--color-accent);
-  color: var(--color-surface-0);
+  color: #ffffff;
 }

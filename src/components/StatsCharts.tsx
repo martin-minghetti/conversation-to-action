@@ -20,8 +20,8 @@ interface StatCardProps {
 
 function StatCard({ label, value, suffix }: StatCardProps) {
   return (
-    <div className="rounded-2xl bg-surface-1 p-6 shadow-[var(--shadow-neu-raised)]">
-      <p className="text-[10px] font-medium text-text-muted uppercase tracking-widest mb-3">{label}</p>
+    <div className="rounded-2xl bg-surface-0 p-6 shadow-[var(--shadow-neu-raised)]">
+      <p className="text-[10px] font-semibold text-text-muted uppercase tracking-widest mb-3">{label}</p>
       <p className="text-3xl font-bold text-text-primary font-mono tabular-nums tracking-tight">
         {value}
         {suffix && <span className="text-base font-medium text-text-muted ml-0.5">{suffix}</span>}
@@ -40,28 +40,29 @@ function BarChart({ title, data, colors }: BarChartProps) {
   const max = Math.max(...Object.values(data), 1);
 
   return (
-    <div className="rounded-2xl bg-surface-1 p-6 shadow-[var(--shadow-neu-raised)]">
-      <p className="text-xs font-medium text-text-secondary uppercase tracking-wide mb-6">{title}</p>
+    <div className="rounded-2xl bg-surface-0 p-6 shadow-[var(--shadow-neu-raised)]">
+      <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-6">{title}</p>
       <div className="flex flex-col gap-6">
         {Object.entries(data).map(([key, value]) => {
-          const color = colors[key] ?? '#5c5c5c';
+          const color = colors[key] ?? '#8b90a0';
+          const pct = Math.max((value / max) * 100, 5);
           return (
             <div key={key} className="flex items-center gap-4">
-              <span className="w-20 text-xs text-text-muted capitalize text-right shrink-0">{key}</span>
+              <span className="w-20 text-xs text-text-muted capitalize text-right shrink-0 font-medium">{key}</span>
               <div
                 className="flex-1 rounded-full h-5 bg-surface-0 p-[3px]"
-                style={{ boxShadow: 'inset 3px 3px 6px rgba(0,0,0,0.5), inset -2px -2px 4px rgba(255,255,255,0.02)' }}
+                style={{ boxShadow: 'inset 3px 3px 6px #b8bcc5, inset -3px -3px 6px #ffffff' }}
               >
                 <div
-                  className="h-full rounded-full transition-all duration-700"
+                  className="h-full rounded-full"
                   style={{
-                    width: `${Math.max((value / max) * 100, 4)}%`,
-                    background: `linear-gradient(180deg, ${color}cc 0%, ${color} 50%, ${color}aa 100%)`,
-                    boxShadow: `1px 1px 3px rgba(0,0,0,0.4), -1px -1px 2px rgba(255,255,255,0.06), 0 0 12px ${color}30`,
+                    width: `${pct}%`,
+                    background: `linear-gradient(180deg, ${color}40 0%, ${color} 100%)`,
+                    boxShadow: `2px 2px 4px #b8bcc5, -1px -1px 3px #ffffff`,
                   }}
                 />
               </div>
-              <span className="w-8 text-xs font-mono font-semibold text-text-secondary text-right shrink-0 tabular-nums">{value}</span>
+              <span className="w-8 text-xs font-mono font-bold text-text-secondary text-right shrink-0 tabular-nums">{value}</span>
             </div>
           );
         })}
@@ -71,18 +72,18 @@ function BarChart({ title, data, colors }: BarChartProps) {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  bug:      '#e8786a',
-  feature:  '#6ea8e4',
-  task:     '#a3a3a3',
-  decision: '#b48ee4',
+  bug:      '#e05a4f',
+  feature:  '#4a7fe5',
+  task:     '#8b90a0',
+  decision: '#8b5cf6',
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  pending:  '#e4c36e',
-  approved: '#6ea8e4',
-  rejected: '#5c5c5c',
-  pushed:   '#6ee4a8',
-  failed:   '#e8786a',
+  pending:  '#d69e2e',
+  approved: '#4a7fe5',
+  rejected: '#8b90a0',
+  pushed:   '#38a169',
+  failed:   '#e05a4f',
 };
 
 export default function StatsCharts() {

@@ -27,29 +27,25 @@ export default function ItemCard({ item }: ItemCardProps) {
 
   return (
     <Link href={`/items/${item.id}`} className="block group">
-      <div className="rounded-xl p-5 bg-surface-1 shadow-[var(--shadow-neu-raised)] hover:shadow-[var(--shadow-neu-hover)] transition-shadow duration-200">
-        {/* Header row */}
+      <div className="rounded-2xl p-5 bg-surface-0 shadow-[var(--shadow-neu-raised)] hover:shadow-[var(--shadow-neu-hover)] transition-shadow duration-200">
         <div className="flex items-center gap-2 flex-wrap mb-3">
-          <span className={`inline-flex items-center text-[11px] font-medium px-2.5 py-1 rounded-lg ${type.className}`}>
+          <span className={`inline-flex items-center text-[11px] font-semibold px-2.5 py-1 rounded-xl ${type.className}`}>
             {type.label}
           </span>
-          <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-medium ${status.className}`}>
+          <span className={`inline-flex items-center px-2.5 py-1 rounded-xl text-[11px] font-semibold ${status.className}`}>
             {status.label}
           </span>
           <ConfidenceBadge confidence={item.confidence} />
         </div>
 
-        {/* Title */}
         <h3 className="font-medium text-text-primary mb-1.5 leading-snug group-hover:text-accent transition-colors duration-150">
           {item.title}
         </h3>
 
-        {/* Description */}
         {item.description && (
           <p className="text-sm text-text-secondary line-clamp-2 leading-relaxed">{item.description}</p>
         )}
 
-        {/* Footer */}
         <div className="mt-3 flex flex-wrap gap-3 text-xs text-text-muted">
           {item.owner && (
             <span>assigned to <span className="text-text-secondary">{item.owner}</span></span>

@@ -5,13 +5,13 @@ interface ConfidenceBadgeProps {
 export default function ConfidenceBadge({ confidence }: ConfidenceBadgeProps) {
   const color =
     confidence >= 90
-      ? 'text-emerald-400'
+      ? 'text-status-pushed'
       : confidence >= 70
-      ? 'text-amber-400'
-      : 'text-red-400';
+      ? 'text-status-pending'
+      : 'text-type-bug';
 
   return (
-    <span className={`inline-flex items-center font-mono text-xs font-medium ${color}`}>
+    <span className={`inline-flex items-center font-mono text-xs font-semibold ${color}`}>
       {confidence}%
     </span>
   );

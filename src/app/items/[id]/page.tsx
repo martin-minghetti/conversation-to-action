@@ -42,91 +42,54 @@ export default async function ItemDetailPage({ params }: PageProps) {
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
-      {/* Back */}
       <Link href="/" className="text-sm text-text-muted hover:text-text-secondary mb-8 inline-flex items-center gap-1 transition-colors">
         <span>←</span> Back to feed
       </Link>
 
-      {/* Badges */}
       <div className="flex flex-wrap gap-2 mb-4">
-        <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-medium ${type.className}`}>
-          {type.label}
-        </span>
-        <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-medium ${status.className}`}>
-          {status.label}
-        </span>
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-xl text-[11px] font-semibold ${type.className}`}>{type.label}</span>
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-xl text-[11px] font-semibold ${status.className}`}>{status.label}</span>
         <ConfidenceBadge confidence={item.confidence} />
       </div>
 
-      {/* Title */}
       <h1 className="text-xl font-semibold text-text-primary mb-3 tracking-tight">{item.title}</h1>
 
-      {/* Description */}
-      {item.description && (
-        <p className="text-text-secondary mb-8 leading-relaxed">{item.description}</p>
-      )}
+      {item.description && <p className="text-text-secondary mb-8 leading-relaxed">{item.description}</p>}
 
-      {/* Meta */}
       {item.owner && (
-        <p className="text-sm text-text-muted mb-6">
-          Owner: <span className="font-medium text-text-secondary">{item.owner}</span>
-        </p>
+        <p className="text-sm text-text-muted mb-6">Owner: <span className="font-medium text-text-secondary">{item.owner}</span></p>
       )}
 
-      {/* Dedup match */}
       {item.dedup_match_id && (
-        <div className="rounded-xl bg-status-pending-bg p-4 mb-8 text-sm text-status-pending shadow-[var(--shadow-neu-inset)]">
-          <strong>Possible duplicate</strong> — matches{' '}
-          <span className="font-mono">{item.dedup_match_id}</span>
-          {item.dedup_similarity != null && (
-            <span className="ml-1">({Math.round(item.dedup_similarity * 100)}%)</span>
-          )}
+        <div className="rounded-2xl bg-surface-0 p-4 mb-8 text-sm text-status-pending shadow-[var(--shadow-neu-inset)]">
+          <strong>Possible duplicate</strong> — matches <span className="font-mono">{item.dedup_match_id}</span>
+          {item.dedup_similarity != null && <span className="ml-1">({Math.round(item.dedup_similarity * 100)}%)</span>}
         </div>
       )}
 
-      {/* External link */}
       {item.external_url && (
         <div className="mb-8">
-          <a
-            href={item.external_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm text-accent hover:underline"
-          >
-            View in external tool
-          </a>
+          <a href={item.external_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-accent hover:underline">View in external tool</a>
         </div>
       )}
 
-      {/* Evidence */}
       {sources && sources.length > 0 && (
         <section className="mb-8">
-          <h2 className="text-[10px] font-medium text-text-muted uppercase tracking-widest mb-4">Evidence</h2>
+          <h2 className="text-[10px] font-semibold text-text-muted uppercase tracking-widest mb-4">Evidence</h2>
           <div className="flex flex-col gap-3">
             {sources.map((src) => (
-              <blockquote
-                key={src.event_id}
-                className="border-l-2 border-text-muted pl-4 text-sm text-text-secondary italic"
-              >
-                {src.evidence_quote}
-              </blockquote>
+              <blockquote key={src.event_id} className="border-l-3 border-accent/30 pl-4 text-sm text-text-secondary italic">{src.evidence_quote}</blockquote>
             ))}
           </div>
         </section>
       )}
 
-      {/* Labels */}
       {item.suggested_labels && item.suggested_labels.length > 0 && (
         <section>
-          <h2 className="text-[10px] font-medium text-text-muted uppercase tracking-widest mb-4">Labels</h2>
+          <h2 className="text-[10px] font-semibold text-text-muted uppercase tracking-widest mb-4">Labels</h2>
           <div className="flex flex-wrap gap-2">
             {item.suggested_labels.map((label) => (
-              <span
-                key={label}
-                className="px-3 py-1 rounded-lg bg-surface-1 text-text-secondary text-xs font-mono shadow-[var(--shadow-neu-sm)]"
-              >
-                {label}
-              </span>
+              <span key={label} className="px-3 py-1 rounded-xl bg-surface-0 text-text-secondary text-xs font-mono shadow-[var(--shadow-neu-sm)]">{label}</span>
             ))}
           </div>
         </section>
