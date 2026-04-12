@@ -6,11 +6,11 @@ import { createBrowserClient } from '@/lib/supabase';
 import ItemCard from './ItemCard';
 
 const FILTERS: { label: string; value: ItemType | 'all' }[] = [
-  { label: 'All',      value: 'all' },
-  { label: '🐛 Bug',      value: 'bug' },
-  { label: '🆕 Feature',  value: 'feature' },
-  { label: '☑️ Task',     value: 'task' },
-  { label: '🧠 Decision', value: 'decision' },
+  { label: 'All',        value: 'all' },
+  { label: '🐛 Bugs',     value: 'bug' },
+  { label: '✦ Features',  value: 'feature' },
+  { label: '◻ Tasks',     value: 'task' },
+  { label: '◆ Decisions', value: 'decision' },
 ];
 
 export default function ItemFeed() {
@@ -63,15 +63,15 @@ export default function ItemFeed() {
   return (
     <div>
       {/* Filter buttons */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-1.5 mb-8">
         {FILTERS.map(({ label, value }) => (
           <button
             key={value}
             onClick={() => setFilter(value)}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors duration-150 ${
               filter === value
-                ? 'bg-gray-900 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-accent text-surface-0'
+                : 'bg-surface-2 text-text-secondary hover:text-text-primary hover:bg-surface-3'
             }`}
           >
             {label}
@@ -81,11 +81,11 @@ export default function ItemFeed() {
 
       {/* Content */}
       {loading ? (
-        <div className="text-center text-gray-400 py-16 text-sm">Loading...</div>
+        <div className="text-center text-text-muted py-20 text-sm">Loading...</div>
       ) : filtered.length === 0 ? (
-        <div className="text-center text-gray-400 py-16 text-sm">No items yet...</div>
+        <div className="text-center text-text-muted py-20 text-sm">No items yet.</div>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           {filtered.map((item) => (
             <ItemCard key={item.id} item={item} />
           ))}

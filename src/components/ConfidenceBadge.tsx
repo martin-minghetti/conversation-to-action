@@ -3,15 +3,15 @@ interface ConfidenceBadgeProps {
 }
 
 export default function ConfidenceBadge({ confidence }: ConfidenceBadgeProps) {
-  const colorClass =
+  const color =
     confidence >= 90
-      ? 'bg-green-100 text-green-800'
+      ? 'text-emerald-400'
       : confidence >= 70
-      ? 'bg-yellow-100 text-yellow-800'
-      : 'bg-red-100 text-red-800';
+      ? 'text-amber-400'
+      : 'text-red-400';
 
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${colorClass}`}>
+    <span className={`inline-flex items-center font-mono text-xs font-medium ${color}`}>
       {confidence}%
     </span>
   );

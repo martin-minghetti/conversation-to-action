@@ -34,8 +34,8 @@ const TYPE_ROLES: Record<ConnectionType, ConnectionRole> = {
 
 function StatusBadge({ status }: { status: string }) {
   return (
-    <span className="inline-flex items-center gap-1 text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-full px-2 py-0.5">
-      <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block" />
+    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400">
+      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
       {status}
     </span>
   );
@@ -64,10 +64,10 @@ function AddForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-3 p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-3"
+      className="mt-3 p-4 border border-border rounded-lg bg-surface-2 space-y-3"
     >
       <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">
+        <label className="block text-xs font-medium text-text-secondary mb-1.5">
           API Key / Token
         </label>
         <input
@@ -76,33 +76,33 @@ function AddForm({
           onChange={(e) => setCredentials(e.target.value)}
           required
           placeholder="Paste your key here"
-          className="w-full text-sm border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-gray-400"
+          className="w-full text-sm border border-border rounded-md px-3 py-2 bg-surface-0 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors"
         />
       </div>
       <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">
-          Config JSON <span className="text-gray-400">(optional)</span>
+        <label className="block text-xs font-medium text-text-secondary mb-1.5">
+          Config JSON <span className="text-text-muted">(optional)</span>
         </label>
         <input
           type="text"
           value={config}
           onChange={(e) => setConfig(e.target.value)}
           placeholder='{"channel": "general"}'
-          className="w-full text-sm border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-gray-400"
+          className="w-full text-sm border border-border rounded-md px-3 py-2 bg-surface-0 text-text-primary placeholder:text-text-muted font-mono focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors"
         />
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 pt-1">
         <button
           type="submit"
           disabled={saving}
-          className="text-sm px-3 py-1.5 bg-gray-900 text-white rounded-md hover:bg-gray-700 disabled:opacity-50"
+          className="text-sm px-4 py-2 bg-accent text-surface-0 font-medium rounded-md hover:bg-accent/90 disabled:opacity-50 transition-colors"
         >
-          {saving ? "Saving…" : "Save"}
+          {saving ? "Saving..." : "Save"}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="text-sm px-3 py-1.5 border border-gray-300 rounded-md hover:bg-gray-100"
+          className="text-sm px-4 py-2 border border-border rounded-md text-text-secondary hover:text-text-primary hover:bg-surface-3 transition-colors"
         >
           Cancel
         </button>
@@ -132,16 +132,16 @@ function ConnectionSection({
 
   return (
     <section className="space-y-3">
-      <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
+      <h2 className="text-[10px] font-medium text-text-muted uppercase tracking-widest">
         {title}
       </h2>
-      <div className="border border-gray-200 rounded-lg divide-y divide-gray-100">
+      <div className="border border-border rounded-lg divide-y divide-border-subtle bg-surface-1">
         {sectionConnections.length === 0 && !types.some((t) => adding === t) && (
-          <p className="text-sm text-gray-400 px-4 py-3">No connections yet.</p>
+          <p className="text-sm text-text-muted px-4 py-3">No connections yet.</p>
         )}
         {sectionConnections.map((conn) => (
           <div key={conn.id} className="flex items-center justify-between px-4 py-3">
-            <span className="text-sm font-medium text-gray-800">
+            <span className="text-sm font-medium text-text-primary">
               {TYPE_LABELS[conn.type]}
             </span>
             <StatusBadge status={conn.status} />
@@ -151,7 +151,7 @@ function ConnectionSection({
           (type) =>
             adding === type && (
               <div key={type} className="px-4 py-3">
-                <p className="text-sm font-medium text-gray-800 mb-1">
+                <p className="text-sm font-medium text-text-primary mb-1">
                   Add {TYPE_LABELS[type]}
                 </p>
                 <AddForm
@@ -170,9 +170,9 @@ function ConnectionSection({
             <button
               key={type}
               onClick={() => onAdd(type)}
-              className="text-xs px-3 py-1.5 border border-gray-300 rounded-md hover:bg-gray-50 text-gray-700"
+              className="text-xs px-3 py-1.5 border border-border border-dashed rounded-md text-text-muted hover:text-text-secondary hover:border-text-muted transition-colors"
             >
-              + Add {TYPE_LABELS[type]}
+              + {TYPE_LABELS[type]}
             </button>
           ))}
       </div>
@@ -234,7 +234,7 @@ export default function ConnectionManager({ workspaceId }: { workspaceId: string
   }
 
   if (loading) {
-    return <p className="text-sm text-gray-400">Loading connections…</p>;
+    return <p className="text-sm text-text-muted">Loading connections...</p>;
   }
 
   return (

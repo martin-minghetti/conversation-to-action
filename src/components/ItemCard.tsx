@@ -2,19 +2,19 @@ import Link from 'next/link';
 import type { Item, ItemType, ItemStatus } from '@/lib/database.types';
 import ConfidenceBadge from './ConfidenceBadge';
 
-const TYPE_CONFIG: Record<ItemType, { emoji: string; borderClass: string; bgClass: string; label: string }> = {
-  bug:      { emoji: '🐛', borderClass: 'border-red-300',    bgClass: 'bg-red-50',    label: 'Bug' },
-  feature:  { emoji: '🆕', borderClass: 'border-blue-300',   bgClass: 'bg-blue-50',   label: 'Feature' },
-  task:     { emoji: '☑️', borderClass: 'border-gray-300',   bgClass: 'bg-gray-50',   label: 'Task' },
-  decision: { emoji: '🧠', borderClass: 'border-purple-300', bgClass: 'bg-purple-50', label: 'Decision' },
+const TYPE_CONFIG: Record<ItemType, { emoji: string; label: string; className: string }> = {
+  bug:      { emoji: '🐛', label: 'Bug',      className: 'text-type-bug bg-type-bug-bg' },
+  feature:  { emoji: '✦',  label: 'Feature',  className: 'text-type-feature bg-type-feature-bg' },
+  task:     { emoji: '◻',  label: 'Task',     className: 'text-type-task bg-type-task-bg' },
+  decision: { emoji: '◆',  label: 'Decision', className: 'text-type-decision bg-type-decision-bg' },
 };
 
 const STATUS_CONFIG: Record<ItemStatus, { label: string; className: string }> = {
-  pending:  { label: 'Pending',  className: 'bg-yellow-100 text-yellow-800' },
-  approved: { label: 'Approved', className: 'bg-blue-100 text-blue-800' },
-  rejected: { label: 'Rejected', className: 'bg-gray-100 text-gray-500 line-through' },
-  pushed:   { label: 'Pushed',   className: 'bg-green-100 text-green-800' },
-  failed:   { label: 'Failed',   className: 'bg-red-100 text-red-800' },
+  pending:  { label: 'Pending',  className: 'text-status-pending bg-status-pending-bg' },
+  approved: { label: 'Approved', className: 'text-status-approved bg-status-approved-bg' },
+  rejected: { label: 'Rejected', className: 'text-status-rejected bg-status-rejected-bg' },
+  pushed:   { label: 'Pushed',   className: 'text-status-pushed bg-status-pushed-bg' },
+  failed:   { label: 'Failed',   className: 'text-status-failed bg-status-failed-bg' },
 };
 
 interface ItemCardProps {
@@ -26,38 +26,39 @@ export default function ItemCard({ item }: ItemCardProps) {
   const status = STATUS_CONFIG[item.status];
 
   return (
-    <Link href={`/items/${item.id}`} className="block">
-      <div className={`border-l-4 rounded-lg p-4 ${type.borderClass} ${type.bgClass} hover:shadow-md transition-shadow`}>
+    <Link href={`/items/${item.id}`} className="block group">
+      <div className="border border-border rounded-lg p-4 bg-surface-1 hover:bg-surface-2 hover:border-border transition-all duration-150">
+        {/* Header row */}
         <div className="flex items-center gap-2 flex-wrap mb-2">
-          {/* Type badge */}
-          <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded bg-white border border-current">
+          <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded ${type.className}`}>
             {type.emoji} {type.label}
           </span>
-
-          {/* Status badge */}
           <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${status.className}`}>
             {status.label}
           </span>
-
-          {/* Confidence */}
           <ConfidenceBadge confidence={item.confidence} />
         </div>
 
-        <h3 className="font-semibold text-gray-900 mb-1 leading-snug">{item.title}</h3>
+        {/* Title */}
+        <h3 className="font-medium text-text-primary mb-1 leading-snug group-hover:text-accent transition-colors duration-150">
+          {item.title}
+        </h3>
 
+        {/* Description */}
         {item.description && (
-          <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
+          <p className="text-sm text-text-secondary line-clamp-2">{item.description}</p>
         )}
 
-        <div className="mt-2 flex flex-wrap gap-3 text-xs text-gray-500">
+        {/* Footer */}
+        <div className="mt-3 flex flex-wrap gap-3 text-xs text-text-muted">
           {item.owner && (
-            <span>Owner: <span className="font-medium text-gray-700">{item.owner}</span></span>
+            <span>→ <span className="text-text-secondary">{item.owner}</span></span>
           )}
           {item.dedup_match_id && (
-            <span>
-              Matches <span className="font-mono text-gray-700">{item.dedup_match_id.slice(0, 8)}</span>
+            <span className="font-mono">
+              ≈ {item.dedup_match_id}
               {item.dedup_similarity != null && (
-                <span className="ml-1">({Math.round(item.dedup_similarity * 100)}% similar)</span>
+                <span className="text-amber-400 ml-1">{Math.round(item.dedup_similarity * 100)}%</span>
               )}
             </span>
           )}

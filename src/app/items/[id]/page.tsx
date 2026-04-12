@@ -5,18 +5,18 @@ import type { ItemType, ItemStatus, Item, ItemSource } from '@/lib/database.type
 import ConfidenceBadge from '@/components/ConfidenceBadge';
 
 const TYPE_CONFIG: Record<ItemType, { emoji: string; label: string; className: string }> = {
-  bug:      { emoji: '🐛', label: 'Bug',      className: 'bg-red-100 text-red-800' },
-  feature:  { emoji: '🆕', label: 'Feature',  className: 'bg-blue-100 text-blue-800' },
-  task:     { emoji: '☑️', label: 'Task',     className: 'bg-gray-100 text-gray-700' },
-  decision: { emoji: '🧠', label: 'Decision', className: 'bg-purple-100 text-purple-800' },
+  bug:      { emoji: '🐛', label: 'Bug',      className: 'text-type-bug bg-type-bug-bg' },
+  feature:  { emoji: '✦',  label: 'Feature',  className: 'text-type-feature bg-type-feature-bg' },
+  task:     { emoji: '◻',  label: 'Task',     className: 'text-type-task bg-type-task-bg' },
+  decision: { emoji: '◆',  label: 'Decision', className: 'text-type-decision bg-type-decision-bg' },
 };
 
 const STATUS_CONFIG: Record<ItemStatus, { label: string; className: string }> = {
-  pending:  { label: 'Pending',  className: 'bg-yellow-100 text-yellow-800' },
-  approved: { label: 'Approved', className: 'bg-blue-100 text-blue-800' },
-  rejected: { label: 'Rejected', className: 'bg-gray-100 text-gray-500 line-through' },
-  pushed:   { label: 'Pushed',   className: 'bg-green-100 text-green-800' },
-  failed:   { label: 'Failed',   className: 'bg-red-100 text-red-800' },
+  pending:  { label: 'Pending',  className: 'text-status-pending bg-status-pending-bg' },
+  approved: { label: 'Approved', className: 'text-status-approved bg-status-approved-bg' },
+  rejected: { label: 'Rejected', className: 'text-status-rejected bg-status-rejected-bg' },
+  pushed:   { label: 'Pushed',   className: 'text-status-pushed bg-status-pushed-bg' },
+  failed:   { label: 'Failed',   className: 'text-status-failed bg-status-failed-bg' },
 };
 
 interface PageProps {
@@ -41,10 +41,10 @@ export default async function ItemDetailPage({ params }: PageProps) {
   const status = STATUS_CONFIG[item.status];
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-10">
+    <main className="max-w-3xl mx-auto px-6 py-12">
       {/* Back */}
-      <Link href="/" className="text-sm text-gray-500 hover:text-gray-800 mb-6 inline-block">
-        ← Back to feed
+      <Link href="/" className="text-sm text-text-muted hover:text-text-secondary mb-8 inline-flex items-center gap-1 transition-colors">
+        <span>←</span> Back to feed
       </Link>
 
       {/* Badges */}
@@ -59,39 +59,39 @@ export default async function ItemDetailPage({ params }: PageProps) {
       </div>
 
       {/* Title */}
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">{item.title}</h1>
+      <h1 className="text-xl font-semibold text-text-primary mb-3 tracking-tight">{item.title}</h1>
 
       {/* Description */}
       {item.description && (
-        <p className="text-gray-600 mb-6 leading-relaxed">{item.description}</p>
+        <p className="text-text-secondary mb-8 leading-relaxed">{item.description}</p>
       )}
 
       {/* Meta */}
       {item.owner && (
-        <p className="text-sm text-gray-500 mb-4">
-          Owner: <span className="font-medium text-gray-800">{item.owner}</span>
+        <p className="text-sm text-text-muted mb-6">
+          Owner: <span className="font-medium text-text-secondary">{item.owner}</span>
         </p>
       )}
 
       {/* Dedup match */}
       {item.dedup_match_id && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 text-sm text-yellow-800">
-          <strong>Possible duplicate</strong> — matches item{' '}
+        <div className="bg-status-pending-bg border border-amber-900/30 rounded-lg p-4 mb-8 text-sm text-amber-300">
+          <strong>Possible duplicate</strong> — matches{' '}
           <span className="font-mono">{item.dedup_match_id}</span>
           {item.dedup_similarity != null && (
-            <span className="ml-1">({Math.round(item.dedup_similarity * 100)}% similarity)</span>
+            <span className="ml-1">({Math.round(item.dedup_similarity * 100)}%)</span>
           )}
         </div>
       )}
 
-      {/* External link (pushed) */}
+      {/* External link */}
       {item.external_url && (
-        <div className="mb-6">
+        <div className="mb-8">
           <a
             href={item.external_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm text-blue-600 hover:underline"
+            className="inline-flex items-center gap-1 text-sm text-accent hover:underline"
           >
             View in external tool ↗
           </a>
@@ -100,13 +100,13 @@ export default async function ItemDetailPage({ params }: PageProps) {
 
       {/* Evidence */}
       {sources && sources.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Evidence</h2>
+        <section className="mb-8">
+          <h2 className="text-[10px] font-medium text-text-muted uppercase tracking-widest mb-4">Evidence</h2>
           <div className="flex flex-col gap-3">
             {sources.map((src) => (
               <blockquote
                 key={src.event_id}
-                className="border-l-4 border-gray-300 pl-4 text-sm text-gray-600 italic"
+                className="border-l-2 border-border pl-4 text-sm text-text-secondary italic"
               >
                 {src.evidence_quote}
               </blockquote>
@@ -115,15 +115,15 @@ export default async function ItemDetailPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Suggested labels */}
+      {/* Labels */}
       {item.suggested_labels && item.suggested_labels.length > 0 && (
         <section>
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Labels</h2>
+          <h2 className="text-[10px] font-medium text-text-muted uppercase tracking-widest mb-4">Labels</h2>
           <div className="flex flex-wrap gap-2">
             {item.suggested_labels.map((label) => (
               <span
                 key={label}
-                className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-xs font-medium"
+                className="px-2.5 py-1 rounded-md bg-surface-2 text-text-secondary text-xs font-mono"
               >
                 {label}
               </span>
