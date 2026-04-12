@@ -20,7 +20,7 @@ interface StatCardProps {
 
 function StatCard({ label, value, suffix }: StatCardProps) {
   return (
-    <div className="rounded-lg border border-border bg-surface-1 px-5 py-4">
+    <div className="rounded-xl bg-surface-1 px-5 py-5 shadow-[var(--shadow-neu-raised)]">
       <p className="text-[10px] font-medium text-text-muted uppercase tracking-widest mb-2">{label}</p>
       <p className="text-2xl font-semibold text-text-primary font-mono tabular-nums">
         {value}
@@ -40,18 +40,18 @@ function BarChart({ title, data, colors }: BarChartProps) {
   const max = Math.max(...Object.values(data), 1);
 
   return (
-    <div className="rounded-lg border border-border bg-surface-1 px-5 py-5">
+    <div className="rounded-xl bg-surface-1 px-5 py-5 shadow-[var(--shadow-neu-raised)]">
       <p className="text-xs font-medium text-text-secondary uppercase tracking-wide mb-5">{title}</p>
-      <div className="flex flex-col gap-3.5">
+      <div className="flex flex-col gap-4">
         {Object.entries(data).map(([key, value]) => (
           <div key={key} className="flex items-center gap-3">
             <span className="w-20 text-xs text-text-muted capitalize text-right shrink-0">{key}</span>
-            <div className="flex-1 bg-surface-2 rounded-full h-2 overflow-hidden">
+            <div className="flex-1 rounded-full h-2.5 overflow-hidden shadow-[var(--shadow-neu-inset)]">
               <div
-                className="h-2 rounded-full transition-all duration-700"
+                className="h-2.5 rounded-full transition-all duration-700"
                 style={{
                   width: `${(value / max) * 100}%`,
-                  backgroundColor: colors[key] ?? '#63636e',
+                  backgroundColor: colors[key] ?? '#5e5e7a',
                 }}
               />
             </div>
@@ -64,18 +64,18 @@ function BarChart({ title, data, colors }: BarChartProps) {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  bug:      '#f87171',
-  feature:  '#60a5fa',
-  task:     '#a1a1aa',
-  decision: '#c084fc',
+  bug:      '#e8786a',
+  feature:  '#6ea8e4',
+  task:     '#9595b2',
+  decision: '#b48ee4',
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  pending:  '#fbbf24',
-  approved: '#60a5fa',
-  rejected: '#63636e',
-  pushed:   '#34d399',
-  failed:   '#f87171',
+  pending:  '#e4c36e',
+  approved: '#6ea8e4',
+  rejected: '#5e5e7a',
+  pushed:   '#6ee4a8',
+  failed:   '#e8786a',
 };
 
 export default function StatsCharts() {
@@ -95,7 +95,7 @@ export default function StatsCharts() {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <StatCard label="Total Items"       value={stats.totalItems} />
         <StatCard label="Approval Rate"     value={stats.approvalRate}          suffix="%" />
         <StatCard label="Avg Confidence"    value={stats.avgConfidence}         suffix="%" />

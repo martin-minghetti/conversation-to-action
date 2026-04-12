@@ -1,37 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --color-surface-0: #09090b;
-  --color-surface-1: #131316;
-  --color-surface-2: #1c1c20;
-  --color-surface-3: #26262b;
-  --color-border: #27272a;
-  --color-border-subtle: #1e1e22;
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #63636e;
-  --color-accent: #22d3ee;
-  --color-accent-dim: #0e7490;
+  --color-surface-0: #1a1a2e;
+  --color-surface-1: #1e1e34;
+  --color-surface-2: #24243c;
+  --color-surface-3: #2a2a44;
+  --color-border: rgba(255, 255, 255, 0.04);
+  --color-border-subtle: rgba(255, 255, 255, 0.02);
+  --color-text-primary: #e2e2ef;
+  --color-text-secondary: #9595b2;
+  --color-text-muted: #5e5e7a;
+  --color-accent: #6ec1e4;
+  --color-accent-dim: #4a8faa;
 
-  --color-type-bug: #f87171;
-  --color-type-bug-bg: rgba(248, 113, 113, 0.1);
-  --color-type-feature: #60a5fa;
-  --color-type-feature-bg: rgba(96, 165, 250, 0.1);
-  --color-type-task: #a1a1aa;
-  --color-type-task-bg: rgba(161, 161, 170, 0.08);
-  --color-type-decision: #c084fc;
-  --color-type-decision-bg: rgba(192, 132, 252, 0.1);
+  --color-type-bug: #e8786a;
+  --color-type-bug-bg: rgba(232, 120, 106, 0.08);
+  --color-type-feature: #6ea8e4;
+  --color-type-feature-bg: rgba(110, 168, 228, 0.08);
+  --color-type-task: #9595b2;
+  --color-type-task-bg: rgba(149, 149, 178, 0.06);
+  --color-type-decision: #b48ee4;
+  --color-type-decision-bg: rgba(180, 142, 228, 0.08);
 
-  --color-status-pending: #fbbf24;
-  --color-status-pending-bg: rgba(251, 191, 36, 0.1);
-  --color-status-approved: #60a5fa;
-  --color-status-approved-bg: rgba(96, 165, 250, 0.1);
-  --color-status-pushed: #34d399;
-  --color-status-pushed-bg: rgba(52, 211, 153, 0.1);
-  --color-status-rejected: #63636e;
-  --color-status-rejected-bg: rgba(99, 99, 110, 0.08);
-  --color-status-failed: #f87171;
-  --color-status-failed-bg: rgba(248, 113, 113, 0.1);
+  --color-status-pending: #e4c36e;
+  --color-status-pending-bg: rgba(228, 195, 110, 0.08);
+  --color-status-approved: #6ea8e4;
+  --color-status-approved-bg: rgba(110, 168, 228, 0.08);
+  --color-status-pushed: #6ee4a8;
+  --color-status-pushed-bg: rgba(110, 228, 168, 0.08);
+  --color-status-rejected: #5e5e7a;
+  --color-status-rejected-bg: rgba(94, 94, 122, 0.06);
+  --color-status-failed: #e8786a;
+  --color-status-failed-bg: rgba(232, 120, 106, 0.08);
+
+  --shadow-neu-raised: 6px 6px 14px rgba(0, 0, 0, 0.35), -6px -6px 14px rgba(255, 255, 255, 0.03);
+  --shadow-neu-inset: inset 4px 4px 10px rgba(0, 0, 0, 0.3), inset -4px -4px 10px rgba(255, 255, 255, 0.025);
+  --shadow-neu-sm: 3px 3px 8px rgba(0, 0, 0, 0.3), -3px -3px 8px rgba(255, 255, 255, 0.025);
+  --shadow-neu-hover: 8px 8px 18px rgba(0, 0, 0, 0.4), -8px -8px 18px rgba(255, 255, 255, 0.035);
 
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;

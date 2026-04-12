@@ -6,11 +6,11 @@ import { createBrowserClient } from '@/lib/supabase';
 import ItemCard from './ItemCard';
 
 const FILTERS: { label: string; value: ItemType | 'all' }[] = [
-  { label: 'All',        value: 'all' },
-  { label: '🐛 Bugs',     value: 'bug' },
-  { label: '✦ Features',  value: 'feature' },
-  { label: '◻ Tasks',     value: 'task' },
-  { label: '◆ Decisions', value: 'decision' },
+  { label: 'All',       value: 'all' },
+  { label: 'Bugs',      value: 'bug' },
+  { label: 'Features',  value: 'feature' },
+  { label: 'Tasks',     value: 'task' },
+  { label: 'Decisions', value: 'decision' },
 ];
 
 export default function ItemFeed() {
@@ -63,15 +63,15 @@ export default function ItemFeed() {
   return (
     <div>
       {/* Filter buttons */}
-      <div className="flex flex-wrap gap-1.5 mb-8">
+      <div className="flex flex-wrap gap-2 mb-8">
         {FILTERS.map(({ label, value }) => (
           <button
             key={value}
             onClick={() => setFilter(value)}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors duration-150 ${
+            className={`px-4 py-2 rounded-xl text-xs font-medium transition-all duration-200 ${
               filter === value
-                ? 'bg-accent text-surface-0'
-                : 'bg-surface-2 text-text-secondary hover:text-text-primary hover:bg-surface-3'
+                ? 'bg-surface-2 text-accent shadow-[var(--shadow-neu-inset)]'
+                : 'bg-surface-1 text-text-secondary shadow-[var(--shadow-neu-sm)] hover:text-text-primary'
             }`}
           >
             {label}
@@ -85,7 +85,7 @@ export default function ItemFeed() {
       ) : filtered.length === 0 ? (
         <div className="text-center text-text-muted py-20 text-sm">No items yet.</div>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4">
           {filtered.map((item) => (
             <ItemCard key={item.id} item={item} />
           ))}

@@ -4,11 +4,11 @@ import { createServiceClient } from '@/lib/supabase';
 import type { ItemType, ItemStatus, Item, ItemSource } from '@/lib/database.types';
 import ConfidenceBadge from '@/components/ConfidenceBadge';
 
-const TYPE_CONFIG: Record<ItemType, { emoji: string; label: string; className: string }> = {
-  bug:      { emoji: '🐛', label: 'Bug',      className: 'text-type-bug bg-type-bug-bg' },
-  feature:  { emoji: '✦',  label: 'Feature',  className: 'text-type-feature bg-type-feature-bg' },
-  task:     { emoji: '◻',  label: 'Task',     className: 'text-type-task bg-type-task-bg' },
-  decision: { emoji: '◆',  label: 'Decision', className: 'text-type-decision bg-type-decision-bg' },
+const TYPE_CONFIG: Record<ItemType, { label: string; className: string }> = {
+  bug:      { label: 'Bug',      className: 'text-type-bug bg-type-bug-bg' },
+  feature:  { label: 'Feature',  className: 'text-type-feature bg-type-feature-bg' },
+  task:     { label: 'Task',     className: 'text-type-task bg-type-task-bg' },
+  decision: { label: 'Decision', className: 'text-type-decision bg-type-decision-bg' },
 };
 
 const STATUS_CONFIG: Record<ItemStatus, { label: string; className: string }> = {
@@ -49,10 +49,10 @@ export default async function ItemDetailPage({ params }: PageProps) {
 
       {/* Badges */}
       <div className="flex flex-wrap gap-2 mb-4">
-        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${type.className}`}>
-          {type.emoji} {type.label}
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-medium ${type.className}`}>
+          {type.label}
         </span>
-        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${status.className}`}>
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-medium ${status.className}`}>
           {status.label}
         </span>
         <ConfidenceBadge confidence={item.confidence} />
@@ -75,7 +75,7 @@ export default async function ItemDetailPage({ params }: PageProps) {
 
       {/* Dedup match */}
       {item.dedup_match_id && (
-        <div className="bg-status-pending-bg border border-amber-900/30 rounded-lg p-4 mb-8 text-sm text-amber-300">
+        <div className="rounded-xl bg-status-pending-bg p-4 mb-8 text-sm text-status-pending shadow-[var(--shadow-neu-inset)]">
           <strong>Possible duplicate</strong> — matches{' '}
           <span className="font-mono">{item.dedup_match_id}</span>
           {item.dedup_similarity != null && (
@@ -93,7 +93,7 @@ export default async function ItemDetailPage({ params }: PageProps) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm text-accent hover:underline"
           >
-            View in external tool ↗
+            View in external tool
           </a>
         </div>
       )}
@@ -106,7 +106,7 @@ export default async function ItemDetailPage({ params }: PageProps) {
             {sources.map((src) => (
               <blockquote
                 key={src.event_id}
-                className="border-l-2 border-border pl-4 text-sm text-text-secondary italic"
+                className="border-l-2 border-text-muted pl-4 text-sm text-text-secondary italic"
               >
                 {src.evidence_quote}
               </blockquote>
@@ -123,7 +123,7 @@ export default async function ItemDetailPage({ params }: PageProps) {
             {item.suggested_labels.map((label) => (
               <span
                 key={label}
-                className="px-2.5 py-1 rounded-md bg-surface-2 text-text-secondary text-xs font-mono"
+                className="px-3 py-1 rounded-lg bg-surface-1 text-text-secondary text-xs font-mono shadow-[var(--shadow-neu-sm)]"
               >
                 {label}
               </span>

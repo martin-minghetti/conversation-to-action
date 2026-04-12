@@ -34,8 +34,8 @@ const TYPE_ROLES: Record<ConnectionType, ConnectionRole> = {
 
 function StatusBadge({ status }: { status: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400">
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-status-pushed">
+      <span className="w-1.5 h-1.5 rounded-full bg-status-pushed inline-block" />
       {status}
     </span>
   );
@@ -64,7 +64,7 @@ function AddForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-3 p-4 border border-border rounded-lg bg-surface-2 space-y-3"
+      className="mt-3 p-4 rounded-xl bg-surface-2 shadow-[var(--shadow-neu-inset)] space-y-3"
     >
       <div>
         <label className="block text-xs font-medium text-text-secondary mb-1.5">
@@ -76,7 +76,7 @@ function AddForm({
           onChange={(e) => setCredentials(e.target.value)}
           required
           placeholder="Paste your key here"
-          className="w-full text-sm border border-border rounded-md px-3 py-2 bg-surface-0 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors"
+          className="w-full text-sm rounded-lg px-3 py-2 bg-surface-0 text-text-primary placeholder:text-text-muted shadow-[var(--shadow-neu-inset)] focus:outline-none focus:ring-1 focus:ring-accent transition-colors"
         />
       </div>
       <div>
@@ -88,21 +88,21 @@ function AddForm({
           value={config}
           onChange={(e) => setConfig(e.target.value)}
           placeholder='{"channel": "general"}'
-          className="w-full text-sm border border-border rounded-md px-3 py-2 bg-surface-0 text-text-primary placeholder:text-text-muted font-mono focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-colors"
+          className="w-full text-sm rounded-lg px-3 py-2 bg-surface-0 text-text-primary placeholder:text-text-muted font-mono shadow-[var(--shadow-neu-inset)] focus:outline-none focus:ring-1 focus:ring-accent transition-colors"
         />
       </div>
       <div className="flex gap-2 pt-1">
         <button
           type="submit"
           disabled={saving}
-          className="text-sm px-4 py-2 bg-accent text-surface-0 font-medium rounded-md hover:bg-accent/90 disabled:opacity-50 transition-colors"
+          className="text-sm px-4 py-2 bg-accent text-surface-0 font-medium rounded-lg shadow-[var(--shadow-neu-sm)] hover:shadow-[var(--shadow-neu-raised)] disabled:opacity-50 transition-shadow"
         >
           {saving ? "Saving..." : "Save"}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="text-sm px-4 py-2 border border-border rounded-md text-text-secondary hover:text-text-primary hover:bg-surface-3 transition-colors"
+          className="text-sm px-4 py-2 bg-surface-1 text-text-secondary rounded-lg shadow-[var(--shadow-neu-sm)] hover:text-text-primary transition-all"
         >
           Cancel
         </button>
@@ -135,12 +135,12 @@ function ConnectionSection({
       <h2 className="text-[10px] font-medium text-text-muted uppercase tracking-widest">
         {title}
       </h2>
-      <div className="border border-border rounded-lg divide-y divide-border-subtle bg-surface-1">
+      <div className="rounded-xl bg-surface-1 shadow-[var(--shadow-neu-raised)] divide-y divide-border">
         {sectionConnections.length === 0 && !types.some((t) => adding === t) && (
-          <p className="text-sm text-text-muted px-4 py-3">No connections yet.</p>
+          <p className="text-sm text-text-muted px-5 py-4">No connections yet.</p>
         )}
         {sectionConnections.map((conn) => (
-          <div key={conn.id} className="flex items-center justify-between px-4 py-3">
+          <div key={conn.id} className="flex items-center justify-between px-5 py-4">
             <span className="text-sm font-medium text-text-primary">
               {TYPE_LABELS[conn.type]}
             </span>
@@ -150,7 +150,7 @@ function ConnectionSection({
         {types.map(
           (type) =>
             adding === type && (
-              <div key={type} className="px-4 py-3">
+              <div key={type} className="px-5 py-4">
                 <p className="text-sm font-medium text-text-primary mb-1">
                   Add {TYPE_LABELS[type]}
                 </p>
@@ -170,7 +170,7 @@ function ConnectionSection({
             <button
               key={type}
               onClick={() => onAdd(type)}
-              className="text-xs px-3 py-1.5 border border-border border-dashed rounded-md text-text-muted hover:text-text-secondary hover:border-text-muted transition-colors"
+              className="text-xs px-3 py-1.5 rounded-lg bg-surface-1 text-text-muted shadow-[var(--shadow-neu-sm)] hover:text-text-secondary hover:shadow-[var(--shadow-neu-raised)] transition-all duration-200"
             >
               + {TYPE_LABELS[type]}
             </button>

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 function Nav() {
   return (
-    <nav className="border-b border-border bg-surface-1">
+    <nav className="bg-surface-1 shadow-[var(--shadow-neu-sm)]">
       <div className="max-w-3xl mx-auto px-6 h-14 flex items-center gap-8">
         <Link href="/" className="font-semibold text-accent tracking-tight text-sm font-mono">
           C2A
