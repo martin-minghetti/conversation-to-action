@@ -20,11 +20,11 @@ interface StatCardProps {
 
 function StatCard({ label, value, suffix }: StatCardProps) {
   return (
-    <div className="rounded-xl bg-surface-1 px-5 py-5 shadow-[var(--shadow-neu-raised)]">
-      <p className="text-[10px] font-medium text-text-muted uppercase tracking-widest mb-2">{label}</p>
-      <p className="text-2xl font-semibold text-text-primary font-mono tabular-nums">
+    <div className="rounded-2xl bg-surface-1 p-6 shadow-[var(--shadow-neu-raised)]">
+      <p className="text-[10px] font-medium text-text-muted uppercase tracking-widest mb-3">{label}</p>
+      <p className="text-3xl font-bold text-text-primary font-mono tabular-nums tracking-tight">
         {value}
-        {suffix && <span className="text-sm font-normal text-text-muted ml-0.5">{suffix}</span>}
+        {suffix && <span className="text-base font-medium text-text-muted ml-0.5">{suffix}</span>}
       </p>
     </div>
   );
@@ -40,22 +40,23 @@ function BarChart({ title, data, colors }: BarChartProps) {
   const max = Math.max(...Object.values(data), 1);
 
   return (
-    <div className="rounded-xl bg-surface-1 px-5 py-5 shadow-[var(--shadow-neu-raised)]">
-      <p className="text-xs font-medium text-text-secondary uppercase tracking-wide mb-5">{title}</p>
-      <div className="flex flex-col gap-4">
+    <div className="rounded-2xl bg-surface-1 p-6 shadow-[var(--shadow-neu-raised)]">
+      <p className="text-xs font-medium text-text-secondary uppercase tracking-wide mb-6">{title}</p>
+      <div className="flex flex-col gap-5">
         {Object.entries(data).map(([key, value]) => (
-          <div key={key} className="flex items-center gap-3">
+          <div key={key} className="flex items-center gap-4">
             <span className="w-20 text-xs text-text-muted capitalize text-right shrink-0">{key}</span>
-            <div className="flex-1 rounded-full h-2.5 overflow-hidden shadow-[var(--shadow-neu-inset)]">
+            <div className="flex-1 rounded-full h-3 overflow-hidden bg-surface-0 shadow-[var(--shadow-neu-inset)] p-[2px]">
               <div
-                className="h-2.5 rounded-full transition-all duration-700"
+                className="h-full rounded-full transition-all duration-700"
                 style={{
                   width: `${(value / max) * 100}%`,
-                  backgroundColor: colors[key] ?? '#5e5e7a',
+                  backgroundColor: colors[key] ?? '#5c5c5c',
+                  boxShadow: `0 0 8px ${colors[key] ?? '#5c5c5c'}40`,
                 }}
               />
             </div>
-            <span className="w-8 text-xs font-mono font-medium text-text-secondary text-right shrink-0 tabular-nums">{value}</span>
+            <span className="w-8 text-xs font-mono font-semibold text-text-secondary text-right shrink-0 tabular-nums">{value}</span>
           </div>
         ))}
       </div>
@@ -66,14 +67,14 @@ function BarChart({ title, data, colors }: BarChartProps) {
 const TYPE_COLORS: Record<string, string> = {
   bug:      '#e8786a',
   feature:  '#6ea8e4',
-  task:     '#9595b2',
+  task:     '#a3a3a3',
   decision: '#b48ee4',
 };
 
 const STATUS_COLORS: Record<string, string> = {
   pending:  '#e4c36e',
   approved: '#6ea8e4',
-  rejected: '#5e5e7a',
+  rejected: '#5c5c5c',
   pushed:   '#6ee4a8',
   failed:   '#e8786a',
 };

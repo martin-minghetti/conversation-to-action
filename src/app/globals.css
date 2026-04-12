@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-surface-0: #1a1a2e;
-  --color-surface-1: #1e1e34;
-  --color-surface-2: #24243c;
-  --color-surface-3: #2a2a44;
+  --color-surface-0: #101010;
+  --color-surface-1: #171717;
+  --color-surface-2: #1e1e1e;
+  --color-surface-3: #262626;
   --color-border: rgba(255, 255, 255, 0.04);
   --color-border-subtle: rgba(255, 255, 255, 0.02);
-  --color-text-primary: #e2e2ef;
-  --color-text-secondary: #9595b2;
-  --color-text-muted: #5e5e7a;
+  --color-text-primary: #e5e5e5;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #5c5c5c;
   --color-accent: #6ec1e4;
   --color-accent-dim: #4a8faa;
 
@@ -17,8 +17,8 @@
   --color-type-bug-bg: rgba(232, 120, 106, 0.08);
   --color-type-feature: #6ea8e4;
   --color-type-feature-bg: rgba(110, 168, 228, 0.08);
-  --color-type-task: #9595b2;
-  --color-type-task-bg: rgba(149, 149, 178, 0.06);
+  --color-type-task: #a3a3a3;
+  --color-type-task-bg: rgba(163, 163, 163, 0.06);
   --color-type-decision: #b48ee4;
   --color-type-decision-bg: rgba(180, 142, 228, 0.08);
 
@@ -28,15 +28,15 @@
   --color-status-approved-bg: rgba(110, 168, 228, 0.08);
   --color-status-pushed: #6ee4a8;
   --color-status-pushed-bg: rgba(110, 228, 168, 0.08);
-  --color-status-rejected: #5e5e7a;
-  --color-status-rejected-bg: rgba(94, 94, 122, 0.06);
+  --color-status-rejected: #5c5c5c;
+  --color-status-rejected-bg: rgba(92, 92, 92, 0.06);
   --color-status-failed: #e8786a;
   --color-status-failed-bg: rgba(232, 120, 106, 0.08);
 
-  --shadow-neu-raised: 6px 6px 14px rgba(0, 0, 0, 0.35), -6px -6px 14px rgba(255, 255, 255, 0.03);
-  --shadow-neu-inset: inset 4px 4px 10px rgba(0, 0, 0, 0.3), inset -4px -4px 10px rgba(255, 255, 255, 0.025);
-  --shadow-neu-sm: 3px 3px 8px rgba(0, 0, 0, 0.3), -3px -3px 8px rgba(255, 255, 255, 0.025);
-  --shadow-neu-hover: 8px 8px 18px rgba(0, 0, 0, 0.4), -8px -8px 18px rgba(255, 255, 255, 0.035);
+  --shadow-neu-raised: 6px 6px 14px rgba(0, 0, 0, 0.5), -6px -6px 14px rgba(255, 255, 255, 0.02);
+  --shadow-neu-inset: inset 4px 4px 10px rgba(0, 0, 0, 0.45), inset -4px -4px 10px rgba(255, 255, 255, 0.015);
+  --shadow-neu-sm: 3px 3px 8px rgba(0, 0, 0, 0.4), -3px -3px 8px rgba(255, 255, 255, 0.015);
+  --shadow-neu-hover: 8px 8px 18px rgba(0, 0, 0, 0.55), -8px -8px 18px rgba(255, 255, 255, 0.025);
 
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
