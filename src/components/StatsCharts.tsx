@@ -72,18 +72,18 @@ function BarChart({ title, data, colors }: BarChartProps) {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  bug:      '#e05a4f',
-  feature:  '#4a7fe5',
-  task:     '#8b90a0',
-  decision: '#8b5cf6',
+  bug:      '#d4918a',
+  feature:  '#8ab4d6',
+  task:     '#a8adb8',
+  decision: '#b8a4d4',
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  pending:  '#d69e2e',
-  approved: '#4a7fe5',
-  rejected: '#8b90a0',
-  pushed:   '#38a169',
-  failed:   '#e05a4f',
+  pending:  '#d4b87a',
+  approved: '#8ab4d6',
+  rejected: '#a8adb8',
+  pushed:   '#8ac4a0',
+  failed:   '#d4918a',
 };
 
 export default function StatsCharts() {
