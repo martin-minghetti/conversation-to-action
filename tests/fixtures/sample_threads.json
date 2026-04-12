@@ -1,0 +1,64 @@
+{
+  "bug_thread": {
+    "messages": [
+      {
+        "author": "sarah",
+        "text": "Hey, the login is crashing on Safari. Users are getting a blank screen after clicking 'Sign in with Google'.",
+        "timestamp": "2024-01-15T09:00:00Z"
+      },
+      {
+        "author": "mike",
+        "text": "I can reproduce it. Looks like the OAuth redirect is broken in Safari — it's not handling the callback URL correctly. Probably the SameSite cookie issue.",
+        "timestamp": "2024-01-15T09:15:00Z"
+      },
+      {
+        "author": "sarah",
+        "text": "Mike can you fix this? It's affecting a lot of users.",
+        "timestamp": "2024-01-15T09:20:00Z"
+      }
+    ]
+  },
+  "feature_and_decision_thread": {
+    "messages": [
+      {
+        "author": "pm_alice",
+        "text": "We've been getting a lot of requests for dark mode. I'd like to add it to our roadmap. What do you all think?",
+        "timestamp": "2024-01-16T10:00:00Z"
+      },
+      {
+        "author": "dev_bob",
+        "text": "Totally doable. We can use CSS variables for the theming. I'd estimate about 2 weeks of work including testing across all pages.",
+        "timestamp": "2024-01-16T10:30:00Z"
+      },
+      {
+        "author": "pm_alice",
+        "text": "Great. Let's approve dark mode for Q3. We'll schedule it for sprints 14 and 15.",
+        "timestamp": "2024-01-16T11:00:00Z"
+      },
+      {
+        "author": "dev_bob",
+        "text": "I'll take ownership of this. I'll start with the CSS variable system and add a theme toggle to the settings page.",
+        "timestamp": "2024-01-16T11:15:00Z"
+      }
+    ]
+  },
+  "small_talk_thread": {
+    "messages": [
+      {
+        "author": "john",
+        "text": "Anyone up for lunch at the new Thai place?",
+        "timestamp": "2024-01-15T12:00:00Z"
+      },
+      {
+        "author": "anna",
+        "text": "I'm in! What time?",
+        "timestamp": "2024-01-15T12:05:00Z"
+      },
+      {
+        "author": "john",
+        "text": "Let's do 12:30. Meet at the lobby.",
+        "timestamp": "2024-01-15T12:10:00Z"
+      }
+    ]
+  }
+}

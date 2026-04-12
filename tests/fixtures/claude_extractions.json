@@ -1,0 +1,51 @@
+{
+  "bug_extraction": {
+    "items": [
+      {
+        "type": "bug",
+        "title": "Login crashes on Safari due to OAuth redirect issue",
+        "description": "Users experience a blank screen after clicking 'Sign in with Google' on Safari. The OAuth callback URL is not handled correctly, likely related to the SameSite cookie issue.",
+        "owner": "mike",
+        "evidence": [
+          "the login is crashing on Safari. Users are getting a blank screen after clicking 'Sign in with Google'.",
+          "Looks like the OAuth redirect is broken in Safari — it's not handling the callback URL correctly. Probably the SameSite cookie issue."
+        ],
+        "confidence": 95,
+        "suggestedLabels": ["bug", "safari", "auth", "oauth"]
+      }
+    ],
+    "threadSummary": "Sarah reported a Safari login crash caused by an OAuth redirect/SameSite cookie issue. Mike confirmed and reproduced it. Sarah asked Mike to fix it."
+  },
+  "feature_and_decision_extraction": {
+    "items": [
+      {
+        "type": "decision",
+        "title": "Dark mode approved for Q3 (sprints 14-15)",
+        "description": "Product manager pm_alice officially approved the dark mode feature for Q3, scheduling it across sprints 14 and 15.",
+        "owner": "pm_alice",
+        "evidence": [
+          "Let's approve dark mode for Q3. We'll schedule it for sprints 14 and 15."
+        ],
+        "confidence": 98,
+        "suggestedLabels": ["decision", "dark-mode", "q3", "roadmap"]
+      },
+      {
+        "type": "feature",
+        "title": "Implement dark mode with CSS variable theming",
+        "description": "Implement dark mode using CSS variables for theming across all pages, including a theme toggle in the settings page. Estimated 2 weeks of work.",
+        "owner": "dev_bob",
+        "evidence": [
+          "We can use CSS variables for the theming. I'd estimate about 2 weeks of work including testing across all pages.",
+          "I'll take ownership of this. I'll start with the CSS variable system and add a theme toggle to the settings page."
+        ],
+        "confidence": 92,
+        "suggestedLabels": ["feature", "dark-mode", "css", "ui"]
+      }
+    ],
+    "threadSummary": "Team discussed and approved dark mode for Q3. dev_bob will implement it using CSS variables with an estimated 2-week effort across sprints 14 and 15."
+  },
+  "empty_extraction": {
+    "items": [],
+    "threadSummary": "Casual lunch plans, no actionable items"
+  }
+}
