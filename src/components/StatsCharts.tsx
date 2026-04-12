@@ -42,23 +42,29 @@ function BarChart({ title, data, colors }: BarChartProps) {
   return (
     <div className="rounded-2xl bg-surface-1 p-6 shadow-[var(--shadow-neu-raised)]">
       <p className="text-xs font-medium text-text-secondary uppercase tracking-wide mb-6">{title}</p>
-      <div className="flex flex-col gap-5">
-        {Object.entries(data).map(([key, value]) => (
-          <div key={key} className="flex items-center gap-4">
-            <span className="w-20 text-xs text-text-muted capitalize text-right shrink-0">{key}</span>
-            <div className="flex-1 rounded-full h-3 overflow-hidden bg-surface-0 shadow-[var(--shadow-neu-inset)] p-[2px]">
+      <div className="flex flex-col gap-6">
+        {Object.entries(data).map(([key, value]) => {
+          const color = colors[key] ?? '#5c5c5c';
+          return (
+            <div key={key} className="flex items-center gap-4">
+              <span className="w-20 text-xs text-text-muted capitalize text-right shrink-0">{key}</span>
               <div
-                className="h-full rounded-full transition-all duration-700"
-                style={{
-                  width: `${(value / max) * 100}%`,
-                  backgroundColor: colors[key] ?? '#5c5c5c',
-                  boxShadow: `0 0 8px ${colors[key] ?? '#5c5c5c'}40`,
-                }}
-              />
+                className="flex-1 rounded-full h-5 bg-surface-0 p-[3px]"
+                style={{ boxShadow: 'inset 3px 3px 6px rgba(0,0,0,0.5), inset -2px -2px 4px rgba(255,255,255,0.02)' }}
+              >
+                <div
+                  className="h-full rounded-full transition-all duration-700"
+                  style={{
+                    width: `${Math.max((value / max) * 100, 4)}%`,
+                    background: `linear-gradient(180deg, ${color}cc 0%, ${color} 50%, ${color}aa 100%)`,
+                    boxShadow: `1px 1px 3px rgba(0,0,0,0.4), -1px -1px 2px rgba(255,255,255,0.06), 0 0 12px ${color}30`,
+                  }}
+                />
+              </div>
+              <span className="w-8 text-xs font-mono font-semibold text-text-secondary text-right shrink-0 tabular-nums">{value}</span>
             </div>
-            <span className="w-8 text-xs font-mono font-semibold text-text-secondary text-right shrink-0 tabular-nums">{value}</span>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
