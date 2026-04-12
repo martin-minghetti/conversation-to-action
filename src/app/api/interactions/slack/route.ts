@@ -40,11 +40,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const supabase = createServiceClient();
 
   // Find items matching this review message
-  const { data: items, error } = await supabase
+  const { data: itemsRaw, error } = await supabase
     .from("items")
     .select("*")
     .eq("review_message_id", messageTs)
     .eq("status", "pending");
+
+  const items = itemsRaw as Array<{ id: string }> | null;
 
   if (error || !items || items.length === 0) {
     return NextResponse.json({ ok: true });
@@ -60,7 +62,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   await supabase
     .from("items")
-    .update({ status: newStatus })
+    .update({ status: newStatus } as any)
     .eq("id", item.id);
 
   return NextResponse.json({ ok: true });

@@ -65,7 +65,10 @@ export async function extractItems(
   apiKey: string,
   client?: MessagesCreateClient
 ): Promise<ExtractionResultSchema> {
-  const resolvedClient: MessagesCreateClient = client ?? new Anthropic({ apiKey });
+  const resolvedClient: MessagesCreateClient = client ?? (() => {
+    const sdk = new Anthropic({ apiKey });
+    return { messagesCreate: sdk.messages.create.bind(sdk.messages) };
+  })();
 
   const userPrompt = buildExtractionPrompt(messages);
 

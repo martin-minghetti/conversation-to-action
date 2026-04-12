@@ -35,7 +35,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       message_timestamp: new Date(canonical.timestamp).toISOString(),
       processed: false,
       error: null,
-    },
+    } as any,
     { onConflict: "connection_id,source_message_id" }
   );
 

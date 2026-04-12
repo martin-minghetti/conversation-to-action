@@ -2,6 +2,7 @@ import type { SourceConnector, SinkConnector } from "@/lib/connectors/types";
 import { extractItems } from "@/lib/pipeline/extract";
 import { resolveItems } from "@/lib/pipeline/resolve";
 import { createServiceClient } from "@/lib/supabase";
+import type { Event } from "@/lib/database.types";
 
 export interface EventLike {
   channel_id: string;

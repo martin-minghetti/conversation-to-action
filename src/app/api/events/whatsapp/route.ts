@@ -5,6 +5,7 @@ import {
   extractWhatsAppMessages,
   normalizeWhatsAppEvent,
 } from "@/lib/connectors/whatsapp";
+import type { Connection } from "@/lib/database.types";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const url = new URL(req.url);
@@ -19,12 +20,14 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const supabase = createServiceClient();
   const encryptionKey = process.env.ENCRYPTION_KEY!;
 
-  const { data: connections, error } = await supabase
+  const { data: connectionsRaw, error } = await supabase
     .from("connections")
     .select("*")
     .eq("type", "whatsapp")
     .eq("role", "source")
     .eq("status", "active");
+
+  const connections = connectionsRaw as Connection[] | null;
 
   if (error || !connections || connections.length === 0) {
     return NextResponse.json({ error: "No active WhatsApp connections" }, { status: 400 });
@@ -73,18 +76,20 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   const supabase = createServiceClient();
 
-  const { data: connections, error } = await supabase
+  const { data: connectionsRaw2, error } = await supabase
     .from("connections")
     .select("*")
     .eq("type", "whatsapp")
     .eq("role", "source")
     .eq("status", "active");
 
-  if (error || !connections || connections.length === 0) {
+  const connections2 = connectionsRaw2 as Connection[] | null;
+
+  if (error || !connections2 || connections2.length === 0) {
     return NextResponse.json({ error: "No active WhatsApp connections" }, { status: 400 });
   }
 
-  const conn = connections[0];
+  const conn = connections2[0];
 
   for (const msg of messages) {
     const canonical = normalizeWhatsAppEvent(msg, conn.workspace_id, conn.id);
@@ -102,7 +107,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         message_timestamp: canonical.timestamp.toISOString(),
         processed: false,
         error: null,
-      },
+      } as any,
       { onConflict: "connection_id,source_message_id" }
     );
   }

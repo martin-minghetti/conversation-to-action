@@ -5,6 +5,7 @@ import {
   verifySlackSignature,
   normalizeSlackEvent,
 } from "@/lib/connectors/slack";
+import type { Connection } from "@/lib/database.types";
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const body = await req.text();
@@ -32,12 +33,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   // Look up active Slack source connections
   const supabase = createServiceClient();
-  const { data: connections, error: connErr } = await supabase
+  const { data: connectionsRaw, error: connErr } = await supabase
     .from("connections")
     .select("*")
     .eq("type", "slack")
     .eq("role", "source")
     .eq("status", "active");
+
+  const connections = connectionsRaw as Connection[] | null;
 
   if (connErr || !connections || connections.length === 0) {
     return NextResponse.json({ error: "No active Slack connections" }, { status: 400 });
@@ -46,7 +49,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const encryptionKey = process.env.ENCRYPTION_KEY!;
 
   // Try each connection's signing secret to find the matching one
-  let matchedConnection: (typeof connections)[number] | null = null;
+  let matchedConnection: Connection | null = null;
   for (const conn of connections) {
     try {
       const creds = JSON.parse(decrypt(conn.encrypted_credentials, encryptionKey)) as {
@@ -96,7 +99,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       message_timestamp: canonical.timestamp.toISOString(),
       processed: false,
       error: null,
-    },
+    } as any,
     { onConflict: "connection_id,source_message_id" }
   );
 

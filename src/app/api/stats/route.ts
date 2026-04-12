@@ -4,7 +4,7 @@ import { createServiceClient } from '@/lib/supabase';
 export async function GET() {
   const supabase = createServiceClient();
 
-  const { data, error } = await supabase
+  const { data: dataRaw, error } = await supabase
     .from('items')
     .select('type, status, confidence, created_at');
 
@@ -12,7 +12,7 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  const items = data ?? [];
+  const items = (dataRaw ?? []) as Array<{ type: string; status: string; confidence: number; created_at: string }>;
   const totalItems = items.length;
 
   // byType

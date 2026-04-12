@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
       config: config ?? {},
       encrypted_credentials: encryptedCredentials,
       status: 'active',
-    })
+    } as any)
     .select('id, type, role, status')
     .single();
 

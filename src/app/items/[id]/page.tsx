@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createServiceClient } from '@/lib/supabase';
-import type { ItemType, ItemStatus } from '@/lib/database.types';
+import type { ItemType, ItemStatus, Item, ItemSource } from '@/lib/database.types';
 import ConfidenceBadge from '@/components/ConfidenceBadge';
 
 const TYPE_CONFIG: Record<ItemType, { emoji: string; label: string; className: string }> = {
@@ -27,10 +27,13 @@ export default async function ItemDetailPage({ params }: PageProps) {
   const { id } = await params;
   const supabase = createServiceClient();
 
-  const [{ data: item }, { data: sources }] = await Promise.all([
+  const [{ data: itemRaw }, { data: sourcesRaw }] = await Promise.all([
     supabase.from('items').select('*').eq('id', id).single(),
     supabase.from('item_sources').select('*').eq('item_id', id),
   ]);
+
+  const item = itemRaw as Item | null;
+  const sources = sourcesRaw as ItemSource[] | null;
 
   if (!item) notFound();
 
