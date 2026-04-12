@@ -42,23 +42,22 @@ function BarChart({ title, data, colors }: BarChartProps) {
   return (
     <div className="rounded-2xl bg-surface-0 p-6 shadow-[var(--shadow-neu-raised)]">
       <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-6">{title}</p>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-5">
         {Object.entries(data).map(([key, value]) => {
-          const color = colors[key] ?? '#8b90a0';
-          const pct = Math.max((value / max) * 100, 5);
+          const color = colors[key] ?? '#a8adb8';
           return (
             <div key={key} className="flex items-center gap-4">
               <span className="w-20 text-xs text-text-muted capitalize text-right shrink-0 font-medium">{key}</span>
               <div
-                className="flex-1 rounded-full h-5 bg-surface-0 p-[3px]"
+                className="flex-1 rounded-full h-7 bg-surface-0 p-[3px]"
                 style={{ boxShadow: 'inset 3px 3px 6px #b8bcc5, inset -3px -3px 6px #ffffff' }}
               >
                 <div
                   className="h-full rounded-full"
                   style={{
-                    width: `${pct}%`,
-                    background: `linear-gradient(180deg, ${color}40 0%, ${color} 100%)`,
-                    boxShadow: `2px 2px 4px #b8bcc5, -1px -1px 3px #ffffff`,
+                    width: `${Math.max((value / max) * 100, 5)}%`,
+                    backgroundColor: color,
+                    boxShadow: '2px 2px 4px #b8bcc5, -1px -1px 3px #ffffff',
                   }}
                 />
               </div>
