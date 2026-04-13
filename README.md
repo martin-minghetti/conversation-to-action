@@ -1,6 +1,62 @@
-# Conversation to Action
+# Conversation-to-Action
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Claude](https://img.shields.io/badge/AI-Claude%20Sonnet-orange)](https://www.anthropic.com/)
+[![Tests](https://img.shields.io/badge/tests-62%20passing-brightgreen)]()
+[![License](https://img.shields.io/badge/license-MIT-green)]()
 
 **Turn messy Slack, Discord, and WhatsApp threads into structured work items in Linear and Notion — without copy-pasting or losing context.**
+
+---
+
+## The Problem
+
+Teams make decisions in chat. Bugs get reported in threads. Feature requests hide inside emoji reactions and side conversations. Someone has to read all of it, figure out what matters, and manually create tickets.
+
+That someone is usually you. And you miss things.
+
+## The Solution
+
+Conversation-to-Action watches your team's channels, extracts actionable items using Claude, deduplicates them against your existing backlog, and lets your team approve or discard each one — right inside the chat where the conversation happened. No context switching. No copy-paste. No tickets falling through the cracks.
+
+---
+
+## How It Works
+
+| Stage | What happens |
+|-------|-------------|
+| **Ingest** | Messages arrive from Slack, Discord, or WhatsApp and are normalized into a canonical event format |
+| **Extract** | Claude identifies four item types — `bug`, `feature`, `task`, `decision` — with titles, descriptions, evidence quotes, confidence scores, and suggested labels |
+| **Dedup** | Each candidate is matched against your Linear/Notion backlog using keyword similarity. Close matches are flagged as updates instead of duplicates |
+| **Review** | Interactive buttons appear in-channel: approve, edit, or discard each item. Your team stays in the conversation |
+| **Push** | Approved items are written to Linear or Notion. Source message permalinks are attached as evidence |
+
+Processing a typical thread of 10-20 messages costs approximately **$0.03-0.05** with Claude Sonnet.
+
+---
+
+## Screenshots
+
+### Live Feed
+Real-time feed of extracted items — bugs, features, tasks, and decisions — with confidence scores, status badges, and dedup matches.
+
+![Feed](public/screenshots/feed.png)
+
+### Item Detail
+Full extraction view with evidence quotes from the source conversation, dedup analysis, and suggested labels.
+
+![Item Detail](public/screenshots/item-detail.png)
+
+### Stats Dashboard
+Pipeline metrics: approval rate, average confidence, and breakdowns by type and status.
+
+![Stats](public/screenshots/stats.png)
+
+### Connection Management
+BYOK setup — connect your own Slack, Discord, WhatsApp, Linear, and Notion accounts with encrypted credentials.
+
+![Settings](public/screenshots/settings.png)
 
 ---
 
@@ -56,30 +112,6 @@ flowchart TD
 
 ---
 
-## Screenshots
-
-### Live Feed
-Real-time feed of extracted items — bugs, features, tasks, and decisions — with confidence scores, status badges, and dedup matches.
-
-![Feed](public/screenshots/feed.png)
-
-### Item Detail
-Full extraction view with evidence quotes from the source conversation, dedup analysis, and suggested labels.
-
-![Item Detail](public/screenshots/item-detail.png)
-
-### Stats Dashboard
-Pipeline metrics: approval rate, average confidence, and breakdowns by type and status.
-
-![Stats](public/screenshots/stats.png)
-
-### Connection Management
-BYOK setup — connect your own Slack, Discord, WhatsApp, Linear, and Notion accounts with encrypted credentials.
-
-![Settings](public/screenshots/settings.png)
-
----
-
 ## Features
 
 - **Three source connectors** — Slack Events API, Discord Gateway, WhatsApp Business API
@@ -92,6 +124,21 @@ BYOK setup — connect your own Slack, Discord, WhatsApp, Linear, and Notion acc
 - **Real-time dashboard** — live feed of extracted items powered by Supabase Realtime
 - **Stats page** — precision metrics per source and item type
 - **Async processing** — events are staged to Supabase; a per-minute cron processes them in batches, respecting Slack's 3-second webhook rule
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| AI | Anthropic SDK — Claude Sonnet |
+| Database | Supabase (Postgres + Realtime) |
+| Discord bot | discord.js (Railway) |
+| Styling | Tailwind CSS v4 |
+| Deployment | Vercel (app) + Railway (Discord bot) |
+| Validation | Zod |
 
 ---
 
@@ -149,15 +196,15 @@ BYOK setup — connect your own Slack, Discord, WhatsApp, Linear, and Notion acc
 
 ---
 
-## How It Works
+## Pipeline Details
 
 ### Stage 1 — Extraction
 
-When a message lands in a connected channel, it is normalized into a canonical event and staged in Supabase. Every minute, a Vercel cron job picks up unprocessed events and groups them by thread. Each thread is sent to **Claude Sonnet** with a structured prompt that identifies four item types: `bug`, `feature`, `task`, and `decision`. The model returns a JSON array with title, description, owner, evidence quotes, confidence score (0–100), and suggested labels.
+When a message lands in a connected channel, it is normalized into a canonical event and staged in Supabase. Every minute, a Vercel cron job picks up unprocessed events and groups them by thread. Each thread is sent to **Claude Sonnet** with a structured prompt that identifies four item types: `bug`, `feature`, `task`, and `decision`. The model returns a JSON array with title, description, owner, evidence quotes, confidence score (0-100), and suggested labels.
 
 ### Stage 2 — Dedup and Resolution
 
-Each candidate item is then sent to your configured sink (Linear or Notion) for a keyword search against the existing backlog. The stage-2 resolver computes string similarity between the candidate title and each search result. If a close match is found (similarity ≥ 0.7), the item is flagged as `update`; if two close matches compete, it becomes `ambiguous`; otherwise it defaults to `create`. This prevents duplicates without requiring embeddings or vector infrastructure.
+Each candidate item is then sent to your configured sink (Linear or Notion) for a keyword search against the existing backlog. The stage-2 resolver computes string similarity between the candidate title and each search result. If a close match is found (similarity >= 0.7), the item is flagged as `update`; if two close matches compete, it becomes `ambiguous`; otherwise it defaults to `create`. This prevents duplicates without requiring embeddings or vector infrastructure.
 
 ### In-Channel Review
 
@@ -169,32 +216,11 @@ Approved items are written to the configured sink via the connector API. If the 
 
 ---
 
-## Cost
-
-Processing a typical thread of 10–20 messages through the two-stage pipeline costs approximately **$0.03–0.05** with Claude Sonnet (as of April 2025).
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 15 (App Router) |
-| Language | TypeScript |
-| AI | Anthropic SDK — Claude Sonnet |
-| Database | Supabase (Postgres + Realtime) |
-| Discord bot | discord.js (Railway) |
-| Styling | Tailwind CSS v4 |
-| Deployment | Vercel (app) + Railway (Discord bot) |
-| Validation | Zod |
-
----
-
 ## Testing
 
 ```bash
-npm test        # run all tests once
-npm run test:watch  # watch mode
+npm test           # run all tests once
+npm run test:watch # watch mode
 ```
 
 62 tests across the full pipeline: extraction, resolution, dedup logic, connector normalizers, crypto utilities, and API route handlers. Tests run in CI on every push via GitHub Actions.
@@ -204,3 +230,28 @@ npm run test:watch  # watch mode
 ## Architecture Decisions
 
 See [DECISIONS.md](DECISIONS.md) for the 9 key trade-off analyses that shaped this project.
+
+---
+
+## Contributing
+
+Contributions are welcome. If you want to add a new source connector, sink, or improve the extraction pipeline:
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feat/my-feature`)
+3. Write tests for your changes
+4. Make sure `npm test` and `npm run typecheck` pass
+5. Open a pull request with a clear description of what you changed and why
+
+For bugs or feature requests, open an issue.
+
+---
+
+## Community
+
+- [GitHub Issues](https://github.com/martin-minghetti/conversation-to-action/issues) — bug reports, feature requests
+- [GitHub Discussions](https://github.com/martin-minghetti/conversation-to-action/discussions) — questions, ideas, show and tell
+
+---
+
+Built by [Martin Minghetti](https://github.com/martin-minghetti).
